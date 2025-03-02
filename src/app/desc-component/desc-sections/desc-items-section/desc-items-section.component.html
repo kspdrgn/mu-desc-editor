@@ -1,0 +1,66 @@
+<div
+  cdkDropList
+  class="drag-box-section"
+  (cdkDropListDropped)="drop($event)"
+  >
+  @for (item of section.items; track $index) {
+    <div class="drag-box-section-item" cdkDrag>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <div class="section-item-drag-handle" cdkDragHandle>
+              <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+                <path d="M0 0h24v24H0z" fill="none"></path>
+              </svg>
+            </div>
+          </span>
+        </div>
+        <input type="text"
+          class="section-item-label form-control"
+          [(ngModel)]="item.name"
+        />
+        <input type="text"
+          class="section-item-value form-control"
+          [(ngModel)]="item.value"
+        />
+        <div class="input-group-append">
+          <button type="button"
+            (click)="removeItem($index)"
+            class="btn btn-outline-warning">
+            X
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+<div class="row">
+
+  <div class="form-group col-2">
+    <button type="button" class="btn btn-outline-primary btn-sm" (click)="addItem()">
+      <i class="fa fa-plus"></i>
+      Add Item
+    </button>
+  </div>
+
+  <div class="form-group col-2">
+    <button type="button" class="btn btn-outline-warning btn-sm" (click)="deleteSection()">
+      <i class="fa fa-x"></i>
+      Delete List
+    </button>
+  </div>
+
+  <div class="form-group col-2">
+    <label for="useBorderHorizontal">
+      Columns
+    </label>
+    <input type="number"
+    [(ngModel)]="section.columns"
+    id="sectionColumns"
+    class="form-control form-control-sm"
+    />
+  </div>
+
+</div>

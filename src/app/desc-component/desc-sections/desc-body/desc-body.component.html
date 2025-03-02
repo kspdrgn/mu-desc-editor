@@ -1,0 +1,30 @@
+<div class="form-group">
+  <textarea
+    [(ngModel)]="section.text"
+    id="sectionText"
+    class="form-control section-text"
+    rows="6"
+    ></textarea>
+</div>
+
+<div class="row">
+
+  <div class="form-check col-2">
+    <label for="forceWrap">
+      Force Wrap
+    </label>
+    <input type="checkbox"
+    [(ngModel)]="section.forceWrap"
+    id="forceWrap"
+    class="form-check-input"
+    />
+  </div>
+
+  <div class="form-group col-2">
+    <button type="button" class="btn btn-outline-warning btn-sm" (click)="deleteSection()">
+      <i class="fa fa-x"></i>
+      Delete Body
+    </button>
+  </div>
+
+</div>

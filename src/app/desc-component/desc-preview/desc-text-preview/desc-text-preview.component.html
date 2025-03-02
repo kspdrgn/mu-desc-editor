@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-header">
+    Desc Preview
+  </div>
+  <div class="card-body">
+    <button class="btn btn-outline-primary"
+      (click)="copyToClipboard()">
+      Copy To Clipboard
+    </button>
+    <textarea readonly>{{renderDesc(desc)}}</textarea>
+  </div>
+</div>

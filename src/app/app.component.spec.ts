@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'desc.nivik.net' title`, () => {
+  it(`should have the 'mu-desc-editor' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('desc.nivik.net');
+    expect(app.title).toEqual('mu-desc-editor');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, desc.nivik.net');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, mu-desc-editor');
   });
 });

@@ -1,4 +1,4 @@
-# DescNivikNet
+# MU Desc Editor
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.0.
 
@@ -7,7 +7,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 To start a local development server, run:
 
 ```bash
-ng serve
+npm start
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
@@ -37,6 +37,8 @@ ng build
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
 ## Running unit tests
+
+Angular CLI generates tests for all components it adds, but it's up to the developer to actually test any added code beyond that.
 
 To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
 

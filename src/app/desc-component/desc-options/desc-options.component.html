@@ -1,0 +1,98 @@
+<div class="card">
+  <div class="card-header">
+    Options
+  </div>
+  <div class="card-body">
+    <div class="row">
+
+      <div class="form-check col-6 col-sm-4 col-md-3 col-lg-2">
+        <label for="useBorderHorizontal">
+          Use Horizontal Border
+        </label>
+        <input type="checkbox"
+          [(ngModel)]="desc.useBorderHorizontal"
+          id="useBorderHorizontal"
+          class="form-check-input"
+          />
+      </div>
+
+      <div class="form-group col-6 col-sm-4 col-md-3 col-lg-2">
+        <label for="borderPatternHorizontal">
+          Horizontal Border Pattern
+        </label>
+        <input type="text"
+          [(ngModel)]="desc.borderPatternHorizontal"
+          id="borderPatternHorizontal"
+          class="form-control"
+          />
+      </div>
+
+      <div class="form-group col-6 col-sm-4 col-md-3 col-lg-2">
+        <label for="borderPatternCorner">
+          Corner Border Decoration
+        </label>
+        <input type="text"
+          [(ngModel)]="desc.borderPatternCorner"
+          id="borderPatternCorner"
+          class="form-control"
+          />
+      </div>
+
+      <div class="form-check col-6 col-sm-4 col-md-3 col-lg-2">
+        <label for="useBorderVertical">
+          Use Vertical Border
+        </label>
+        <input type="checkbox"
+          [(ngModel)]="desc.useBorderVertical"
+          id="useBorderVertical"
+          class="form-check-input"
+          />
+      </div>
+
+      <div class="form-group col-6 col-sm-4 col-md-3 col-lg-2">
+        <label for="borderPatternVertical">
+          Vertical Border Pattern
+        </label>
+        <input type="text"
+          [(ngModel)]="desc.borderPatternVertical"
+          id="borderPatternVertical"
+          class="form-control"
+          />
+      </div>
+
+      <div class="form-group col-6 col-sm-4 col-md-3 col-lg-2">
+        <label for="borderPatternColumn">
+          Column Seperator
+        </label>
+        <input type="text"
+          [(ngModel)]="desc.borderPatternColumn"
+          id="borderPatternColumn"
+          class="form-control"
+          />
+      </div>
+
+      <div class="form-group col-6 col-sm-4 col-md-3 col-lg-2">
+        <label for="width">
+          Border/Wrap Width
+        </label>
+        <input type="number"
+          [(ngModel)]="desc.width"
+          id="width"
+          class="form-control"
+          />
+      </div>
+
+      <div class="form-check col-6 col-sm-4 col-md-3 col-lg-2">
+        <label for="includeAttribution">
+          Include Attribution
+        </label>
+        <input type="checkbox"
+          [(ngModel)]="desc.includeAttribution"
+          id="includeAttribution"
+          class="form-check-input"
+          />
+      </div>
+
+    </div>
+  </div>
+</div>

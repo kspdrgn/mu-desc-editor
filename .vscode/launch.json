@@ -3,6 +3,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "url": "http://localhost:4200/",
+      "webRoot": "${workspaceFolder}",
+      "name": "Firefox launch"
+    },
+    {
+      "type": "firefox",
+      "request": "attach",
+      "url": "http://localhost:4200/",
+      "name": "Firefox Attach"
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",
