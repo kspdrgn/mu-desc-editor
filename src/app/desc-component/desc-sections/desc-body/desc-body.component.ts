@@ -1,17 +1,14 @@
-import { Component, Input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-desc-body',
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './desc-body.component.html',
   styleUrl: './desc-body.component.css'
 })
 export class DescBodyComponent {
-  @Input() desc: IDesc = {sections: []};
-  @Input() section: IBodySection = {type: 'body', text: ''};
-
-  deleteSection() {
-    this.desc.sections.splice(this.desc.sections.indexOf(this.section), 1);
-  }
+  @Input() sectionForm!: FormGroup;
+  @Input() sectionIndex!: number;
+  @Output() deleteSection: EventEmitter<number> = new EventEmitter();
 }

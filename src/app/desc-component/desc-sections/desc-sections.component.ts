@@ -1,13 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { DescBodyComponent } from './desc-body/desc-body.component';
 import { DescItemsSectionComponent } from './desc-items-section/desc-items-section.component';
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { newDescBodyForm, newDescItemsSectionForm } from '../formSectionBuilders';
 
 @Component({
   selector: 'app-desc-sections',
   imports: [
-    FormsModule,
+    ReactiveFormsModule,
     DescBodyComponent,
     DescItemsSectionComponent,
     CdkDrag,
@@ -18,18 +19,31 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './desc-sections.component.css'
 })
 export class DescSectionsComponent {
-  @Input() desc: IDesc = {sections: []};
+  constructor(private readonly fb: FormBuilder, private readonly changeDetection: ChangeDetectorRef) {}
+
+  @Input() form!: FormGroup;
+
+  public get sections() {
+    return this.form.get('sections') as FormArray<FormGroup>;
+  }
 
   addBodySection() {
-    this.desc.sections.push({type: 'body', text: ''});
+    const f = newDescBodyForm(this.fb);
+    this.sections.push(f);
   }
 
   addItemsSection() {
-    this.desc.sections.push({type: 'section', items: [{name: '', value: ''}]});
+    const f = newDescItemsSectionForm(this.fb);
+    this.sections.push(f);
+  }
+
+  deleteSection(sectionIndex: number) {
+    this.sections.removeAt(sectionIndex);
   }
 
   /** Section dragged and dropped into (maybe new) position. Powered by https://material.angular.io/cdk/drag-drop/overview */
-  drop(event: CdkDragDrop<ISection[]>) {
-    moveItemInArray(this.desc.sections, event.previousIndex, event.currentIndex);
+  sectionDragDrop(event: CdkDragDrop<ISection[]>) {
+    moveItemInArray(this.sections.controls, event.previousIndex, event.currentIndex);
+    this.changeDetection.detectChanges();
   }
 }

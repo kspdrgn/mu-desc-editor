@@ -5,13 +5,36 @@
       <h1>MU Desc Editor</h1>
       <p>It formats descs for you. Just start typing!</p>
       <p>TODO: Save state, switch between characters, support morphs, support multiple morphs, support custom desc list names/dirs.</p>
-      <p>Based on <a href="https://desc.nivik.net/">Nivik's Desc Tool</a></p>
+      <p>Inspired by <a href="https://desc.nivik.net/">Nivik's Desc Tool</a></p>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-inline">
+            <select class="form-control"
+              [(ngModel)]="selectedCharacterIndex"
+              (change)="charChanged($event)"
+              >
+              @for (character of characters; track $index) {
+                <option
+                  [ngValue]="$index"
+                  [selected]="selectedCharacterIndex == $index"
+                  >
+                  {{character.name}}
+                </option>
+              }
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
 
     <app-desc-component
       class="desc-container"
-      [desc]="desc"
+      [desc]="char"
       ></app-desc-component>
+
+    <button type="button" (click)="forceChangeDetection()">
+      Force Change Detection
+    </button>
   </div>
 </main>
 

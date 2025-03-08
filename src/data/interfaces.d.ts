@@ -1,17 +1,11 @@
 interface IDesc {
+  name?: string;
   sections: (IBodySection | IItemsSection)[];
-  width?: number;
-  borderPatternHorizontal?: string;
-  borderPatternVertical?: string;
-  borderPatternCorner?: string;
-  borderPatternColumn?: string;
-  useBorderHorizontal?: boolean;
-  useBorderVertical?: boolean;
-  includeAttribution?: boolean;
+  options?: IOptions;
 }
 
 interface ISection {
-  type: 'body' | 'section';
+  type: 'body' | 'list';
 }
 
 interface IBodySection implements ISection {
@@ -21,7 +15,7 @@ interface IBodySection implements ISection {
 }
 
 interface IItemsSection implements ISection {
-  type: 'section';
+  type: 'list';
   columns?: number;
   items: IItemsSectionItem[];
 }
@@ -29,4 +23,15 @@ interface IItemsSection implements ISection {
 interface IItemsSectionItem {
   name: string;
   value: string;
+}
+
+interface IOptions {
+  width?: number;
+  borderPatternHorizontal?: string;
+  borderPatternVertical?: string;
+  borderPatternCorner?: string;
+  borderPatternColumn?: string;
+  useBorderHorizontal?: boolean;
+  useBorderVertical?: boolean;
+  includeAttribution?: boolean;
 }

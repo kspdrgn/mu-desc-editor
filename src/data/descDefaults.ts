@@ -1,9 +1,10 @@
 export const defaultDesc: IDesc = {
+  name: 'Char Example',
   sections: [{
     type: 'body',
     text: 'This is a character description. The first paragraph should probably mention important things like height and predominant coloring first so you know what you\'re looking at, but it can also include some overall notes on style and demeanor.\n\nThe middle of the description might be a top to bottom tour of the character\'s physical or presenting appearance. Clothes and a more detailed look at the shape of their figure is a great thing to include here.\n\nThe last paragraph is usually a bit of summary and almost always mentions the more luscious and alluring traits that often require similes like fruit and sports balls as size references. Descriptions are fun!\n\nPic links would go here if you have any!',
   }, {
-    type: 'section',
+    type: 'list',
     columns: 3,
     items: [{
       name: 'NAME',
@@ -34,7 +35,7 @@ export const defaultDesc: IDesc = {
       value: 'Swishy',
     }],
   }, {
-    type: 'section',
+    type: 'list',
     items: [{
       name: 'Shirt',
       value: 'Bright pink tank top.',
@@ -46,12 +47,13 @@ export const defaultDesc: IDesc = {
       value: 'Toeless digitigrade sneakers.',
     }]
   }],
-  width: 79,
-  useBorderHorizontal: true,
-  useBorderVertical: true,
-  borderPatternHorizontal: '-\'_`-._,',
-  borderPatternVertical: '|',
-  borderPatternCorner: '@',
-  borderPatternColumn: '·',
-  includeAttribution: true,
+  options: {
+    width: 79,
+    useBorderHorizontal: true,
+    useBorderVertical: true,
+    borderPatternHorizontal: '-\'_`-._,',
+    borderPatternVertical: '|',
+    borderPatternCorner: '@',
+    borderPatternColumn: '·',
+  },
 };

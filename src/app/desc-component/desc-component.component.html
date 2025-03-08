@@ -1,21 +1,34 @@
 <div class="container-fluid">
 
-  <br/>
-
-  <app-desc-sections
-    [desc]="desc"
-    ></app-desc-sections>
+  <p>Dirty: {{descForm.dirty}}</p>
 
   <br/>
 
-  <app-desc-options
-    [desc]="desc"
-    ></app-desc-options>
+  <form [formGroup]="descForm">
+
+    <div class="form-group">
+      <label for="name">Character Name</label>
+      <input type="text" formControlName="name"/>
+    </div>
+
+    <p>Character Name: {{descForm.value.name}}</p>
+
+    <app-desc-sections
+      [form]="descForm"
+      ></app-desc-sections>
+
+    <br/>
+
+    <app-desc-options
+      [form]="descForm"
+      ></app-desc-options>
+
+  </form>
 
   <br/>
 
   <app-desc-preview
-    [desc]="desc"
+    [desc]="descForm.value"
     ></app-desc-preview>
 
 </div>

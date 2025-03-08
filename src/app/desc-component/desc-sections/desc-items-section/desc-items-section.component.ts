@@ -1,13 +1,14 @@
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { newDescItemsSectionItemForm } from '../../formSectionBuilders';
 
 @Component({
   selector: 'app-desc-items-section',
   imports: [
-    FormsModule,
+    ReactiveFormsModule,
     CdkDrag,
     CdkDragHandle,
     CdkDropList,
@@ -18,23 +19,34 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './desc-items-section.component.css'
 })
 export class DescItemsSectionComponent {
-  @Input() desc: IDesc = {sections: []};
-  @Input() section: IItemsSection = {type: 'section', items: []};
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly changeDetection: ChangeDetectorRef) { }
+
+  @Input() sectionForm!: FormGroup;
+  @Input() sectionIndex!: number;
+  @Output() deleteSection: EventEmitter<number> = new EventEmitter();
+
+  public get items() {
+    return this.sectionForm.get('items') as FormArray<FormGroup>;
+  }
 
   addItem() {
-    this.section.items.push({name: '', value: ''});
+    const fg = newDescItemsSectionItemForm(this.fb);
+    this.items.push(fg);
   }
 
   removeItem(index: number) {
-    this.section.items.splice(index, 1);
+    // note: using .splice() won't update validity correctly: https://stackoverflow.com/a/68406075
+    this.items.removeAt(index);
   }
 
-  deleteSection() {
-    this.desc.sections.splice(this.desc.sections.indexOf(this.section), 1);
-  }
-
-  /** Section dragged and dropped into (maybe new) position. Powered by https://material.angular.io/cdk/drag-drop/overview */
-  drop(event: CdkDragDrop<IItemsSectionItem[]>) {
-    moveItemInArray(this.section.items, event.previousIndex, event.currentIndex);
+  /** Item dragged and dropped into (maybe new) position. Powered by https://material.angular.io/cdk/drag-drop/overview */
+  itemDragDrop(event: CdkDragDrop<IItemsSectionItem[]>) {
+    moveItemInArray(this.items.controls, event.previousIndex, event.currentIndex);
+    // note: must update validity after changing array: https://stackoverflow.com/a/68406075
+    this.items.controls.map(control => {
+      control.updateValueAndValidity({ onlySelf: false, emitEvent: false });
+    });
   }
 }

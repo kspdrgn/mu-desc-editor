@@ -3,16 +3,17 @@ const attributionText = '[created by mu-desc-editor]';
 
 /** Render description into text. */
 export function renderDesc(desc: IDesc): string {
+  const o = desc.options || {};
   let s = '';
-  s += renderBorderHorizontal(desc);
+  s += renderBorderHorizontal(o);
   for (let i = 0; i < desc.sections.length; i++) {
     const section = desc.sections[i];
     if (section.type === 'body')
       s += renderBodySection(desc, section);
-    if (section.type === 'section')
+    if (section.type === 'list')
       s += renderItemsSection(desc, section);
     const isLastSection = i === desc.sections.length - 1;
-    s += renderBorderHorizontal(desc, isLastSection);
+    s += renderBorderHorizontal(o, isLastSection);
   }
   return s;
 }
@@ -24,12 +25,12 @@ function renderBodySection(desc: IDesc, section: IBodySection) {
     return section.text + '\n';
 
   // wrap body within vertical border.
-  const borderWidth = desc.useBorderVertical
-    ? (desc.borderPatternVertical?.length ?? 0) + 1
+  const borderWidth = desc.options?.useBorderVertical
+    ? (desc.options?.borderPatternVertical?.length ?? 0) + 1
     : 0;
-  const bodyWidth = (desc.width ?? defaultWidth) - borderWidth * 2;
-  const border = desc.useBorderVertical && desc.borderPatternVertical?.length
-    ? desc.borderPatternVertical
+  const bodyWidth = (desc.options?.width ?? defaultWidth) - borderWidth * 2;
+  const border = desc.options?.useBorderVertical && desc.options?.borderPatternVertical?.length
+    ? desc.options.borderPatternVertical
     : undefined;
 
   return wrapMultipleLinesOfTextOnWordsMaybeWithBordersToo(section.text, bodyWidth, border);
@@ -37,7 +38,8 @@ function renderBodySection(desc: IDesc, section: IBodySection) {
 
 function renderItemsSection(desc: IDesc, section: IItemsSection) {
   const numColumns = +(section.columns ?? 1);
-  const columnSepWidth = desc.borderPatternColumn?.length ?? 0;
+  const o = desc.options;
+  const columnSepWidth = o?.borderPatternColumn?.length ?? 0;
   const useColumnSep = columnSepWidth > 0;
 
   // Compute width of labels to put the ':' separator vertically aligned per column.
@@ -51,8 +53,8 @@ function renderItemsSection(desc: IDesc, section: IItemsSection) {
   for (let i = 0; i < section.items.length; i += numColumns) {
     let line = '';
 
-    if (desc.useBorderVertical)
-      line += desc.borderPatternVertical + ' ';
+    if (o?.useBorderVertical)
+      line += o?.borderPatternVertical + ' ';
 
     for (let col = 0; col < numColumns; col++) {
       const item = section.items[i + col];
@@ -65,16 +67,16 @@ function renderItemsSection(desc: IDesc, section: IItemsSection) {
 
       line += itemText;
       line += useColumnSep && col < numColumns - 1
-        ? ` ${desc.borderPatternColumn} `
+        ? ` ${o?.borderPatternColumn} `
         : '';
     }
 
     // TODO: pad right border out to width, and ignore if already past width.
-    if (desc.useBorderVertical && desc.borderPatternVertical?.length) {
-      const w = desc.width ?? defaultWidth;
-      const b = desc.borderPatternVertical.length + 1;
+    if (o?.useBorderVertical && o?.borderPatternVertical?.length) {
+      const w = o?.width ?? defaultWidth;
+      const b = o?.borderPatternVertical.length + 1;
       if (line.length < w - b)
-        line = line.padEnd(w - b) + ' ' + desc.borderPatternVertical;
+        line = line.padEnd(w - b) + ' ' + o?.borderPatternVertical;
     }
 
     line += '\n';
@@ -103,18 +105,18 @@ function getColumnPadWidth(section: IItemsSection, valueSelector: (item: IItemsS
 }
 
 /** Draw a horizontal border with optional corner decoration. */
-function renderBorderHorizontal(desc: IDesc, isLastLine = false) {
-  if (!desc.useBorderHorizontal || !desc.borderPatternHorizontal?.length)
+function renderBorderHorizontal(o: IOptions, isLastLine = false) {
+  if (!o.useBorderHorizontal || !o.borderPatternHorizontal?.length)
     return '';
-  const corner = desc.borderPatternCorner ?? '';
-  const pattern = desc.borderPatternHorizontal ?? '-';
-  const width = desc.width ?? defaultWidth;
+  const corner = o.borderPatternCorner ?? '';
+  const pattern = o.borderPatternHorizontal ?? '-';
+  const width = o.width ?? defaultWidth;
   const fillWidth = width - (2 * corner.length);
   let middle = repeatStringToWidth(pattern, fillWidth);
 
   // attribution.
   const attributionDistFromRight = 4;
-  if (isLastLine && desc.includeAttribution && attributionText?.length && middle.length > attributionText.length + attributionDistFromRight) {
+  if (isLastLine && o.includeAttribution && attributionText?.length && middle.length > attributionText.length + attributionDistFromRight) {
     //middle = insertStringInString(middle, attributionText, fillWidth, distFromRight);
     const startIndex = middle.length - attributionText.length - attributionDistFromRight;
     middle = middle.slice(0, startIndex) + attributionText + middle.slice(startIndex + attributionText.length);
