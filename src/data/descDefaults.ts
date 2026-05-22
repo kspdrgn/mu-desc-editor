@@ -49,7 +49,7 @@ export const defaultDesc: IDesc = {
   width: 79,
   useBorderHorizontal: true,
   useBorderVertical: true,
-  borderPatternHorizontal: '-~`~-._,',
+  borderPatternHorizontal: '-~-~-._,',
   borderPatternVertical: '|',
   borderPatternCorner: '*',
   borderPatternColumn: '|',
