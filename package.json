@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "npm run node-setup && ng serve",
     "build": "npm run node-setup && ng build",
-    "build4pages": "npm run node-setup && ng build --deploy-url mu-desc-editor",
+    "build4pages": "npm run node-setup && ng build --deploy-url /mu-desc-editor/",
     "watch": "npm run node-setup && ng build --watch --configuration development",
     "clean": "npx rimraf dist",
     "node-setup": "node -v && npm -v && ng --version && npm install",
