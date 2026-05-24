@@ -1,5 +1,5 @@
 const defaultWidth = 79;
-const attributionText = '[created by mu-desc-editor]';
+const attributionText = '[formatted at kspdrgn.github.io]';
 
 /** Render description into text. */
 export function renderDesc(desc: IDesc): string {
