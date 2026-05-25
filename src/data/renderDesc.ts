@@ -1,5 +1,6 @@
 const defaultWidth = 79;
-const attributionText = '[formatted at kspdrgn.github.io]';
+
+export const attributionText = '[formatted at kspdrgn.github.io]';
 
 /** Render description into text. */
 export function renderDesc(desc: IDesc): string {

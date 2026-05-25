@@ -1,0 +1,27 @@
+<p>desc-parser</p>
+
+<div class="form-group">
+
+  <p>
+    Paste a complete description text here to try to parse it and fill in the pieces below. This will cause any description or options below to be RESET!
+  </p>
+  <p>Parsing limitations:</p>
+  <ul>
+    @for (item of parseDescLimits; track item) {
+      <li>{{item}}</li>
+    }
+  </ul>
+
+  <textarea
+    [(ngModel)]="parseText"
+    id="parseText"
+    class="form-control section-text"
+    rows="6"
+    ></textarea>
+
+  <button type="button"
+    (click)="parseClick()"
+    >
+    Try Parse!
+  </button>
+</div>
